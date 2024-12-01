@@ -37,6 +37,11 @@ public class ArrCharOps {
      */
     public static char charAt(char[] arr, int index) {
         // Replace the following statement with your code
+        for (int i = 0; i < arr.length; i++) {
+            if(index == i) {
+                return arr[i];
+            }
+        }
         return 0;
     }
 
@@ -45,7 +50,13 @@ public class ArrCharOps {
      */
     public static boolean equals(char[] arr1, char[] arr2) {
         // Replace the following statement with your code
-        return false;
+        if (arr1.length != arr2.length) {return false;}
+        else {
+            for (int i = 0; i < arr1.length; i++) {
+                if(charAt(arr1, i) != charAt(arr2, i)) {return false;}
+            }
+        }
+        return true;
     }
 
     /** Returns the index within the given array of the first occurrence of the given character.
@@ -53,6 +64,9 @@ public class ArrCharOps {
      */
     public static int indexOf(char[] arr, char ch) {
         // Replace the following statement with your code
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == ch) {return i;}
+        }
         return -1;
     }
 
@@ -60,6 +74,9 @@ public class ArrCharOps {
      */
     public static int indexOf(char[] arr, char ch, int fromIndex) {
         // Replace the following statement with your code
+        for (int i = fromIndex; i < arr.length; i++) {
+            if(arr[i] == ch) {return i;}
+        }
         return -1;
     }
 
@@ -68,6 +85,9 @@ public class ArrCharOps {
      */
     public static int lastIndexOf(char[] arr, char ch) {
         // Replace the following statement with your code
+        for (int i = arr.length - 1; i > 0; i--) {
+            if(arr[i] == ch) {return i;}
+        }
         return -1;
     }
 
@@ -75,7 +95,17 @@ public class ArrCharOps {
     */
     public static char[] concat(char[] arr1, char[] arr2) {
         // Replace the following statement with your code
-        return null;
+        int length = arr1.length + arr2.length;
+        char[] newarr = new char[length];
+        for(int i = 0; i < arr1.length; i++) {
+            newarr[i] = arr1[i];
+        }
+
+        for(int i = 0; i < arr2.length; i++) {
+            newarr[i + arr1.length] = arr2[i];
+        }
+
+        return newarr;
     }
 
     /** Returns a new array that can be described as a sub-array of this array.
@@ -85,7 +115,13 @@ public class ArrCharOps {
      */     
     public static char[] subArray(char[] arr, int beginIndex, int endIndex) {
         // Replace the following statement with your code
-        return null;
+        char[] newarr = new char[endIndex - beginIndex];
+        int counter = 0;
+        for(int i = beginIndex; i < endIndex; i++) {
+            newarr[counter] = arr[i];
+            counter++;
+        }
+        return newarr;
     }
 
      /** Returns a single integer that represents the given array. This integer is sometimes 
@@ -97,7 +133,15 @@ public class ArrCharOps {
      */
     public static long hashCode(char[] arr) {
         // Replace the following statement with your code
-        return 0;
+        double hash = 0;
+        int n = arr.length;
+        int counter = 1;
+        for(int i = 0; i < arr.length; i++) {
+            hash = hash + arr[i] * Math.pow(7, n - counter);
+            counter++;
+        }
+
+        return (long) hash;
     }
 
     /**
@@ -127,6 +171,37 @@ public class ArrCharOps {
      */
     public static int compareTo(String str1, String str2) {
         // Replace the following statement with your code
-        return 0;
+        preProcess(str2);
+        preProcess(str1);
+        if(str1.length() == 0 || str2.length() == 0) {return -2;}
+        if(str1.compareTo(str2) == 0) {return 0;}
+
+        String big;
+        String small;
+        int check;
+        if(str1.length() > str2.length()) {big = str1; small = str2; check = 1;}
+            else{big = str2; small = str1;check = -1;}
+
+        for (int i = 0; i < small.length(); i++) {
+            if(big.charAt(i) > small.charAt(i)) {return check;}
+            else{if(big.charAt(i) < small.charAt(i)) {check = check * -1; return check;}}
+        }
+
+        return check;
     }
+
+    public static String preProcess(String str) {
+        // Replace the following statement with your code
+        String change ="";
+        str = str.toLowerCase();
+        if (str.length() > 0) {
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (96 < c && c < 123) {
+                change = change + c;
+            }
+        }
+    }
+        return change;
+    } 
 }
