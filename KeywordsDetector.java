@@ -30,6 +30,7 @@ public class KeywordsDetector {
             str += sentences[i];
         }
         for(int i = 0; i < keywords.length; i++) {
+            keywords[i] = keywords[i].toLowerCase();
             if(contains(str, keywords[i])) {
                 System.out.println(keywords[i]);
             }
