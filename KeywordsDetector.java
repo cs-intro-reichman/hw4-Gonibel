@@ -15,80 +15,32 @@ public class KeywordsDetector {
             "Our new technology presents a significant paradigm shift",
             "Effective presentations must be clear, concise, and humble"
         };
+
         // Some keywords that typically signal bullshit contents in business presentations 
-        String[] keywords = {"synergy", "disrupt", "leverage", "Paradigm", "transform"};
+        String[] keywords = {"synergy", "disrupt", "leverage", "paradigm", "transform"};
         detectAndPrint(sentences, keywords);
     }
 
-    // Iterates through all the sentences.
-    // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        // Replace this comment with your code
-        String str ="";
-        for( int i = 0; i < sentences.length; i++) {
-            sentences[i] = sentences[i].toLowerCase();
-            str += sentences[i];
-        }
-        for(int i = 0; i < keywords.length; i++) {
-            keywords[i] = keywords[i].toLowerCase();
-            if(contains(str, keywords[i])) {
-                System.out.println(keywords[i]);
+        for (int i = 0; i < keywords.length; i++) {
+            for (int j = 0; j < sentences.length; j++) {
+                String str = sentences[j].toLowerCase();
+                String key = keywords[i].toLowerCase();
+                if (contains(str, key)) {
+                    System.out.println(sentences[j]);
+                }
             }
         }
-
     }
 
-    public static String lowerCase(String str) {
-        // Replace the following statement with your code
-        String newstr = "";
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) > 64 && str.charAt(i) < 91) {
-                newstr += (char) (str.charAt(i) + 32);
-            }
-           // if (str.charAt(i) > 96 && str.charAt(i) < 123 || str.charAt(i) == 32) {
-           //     newstr += (char) str.charAt(i);
-             else {
-                newstr += str.charAt(i);
-            }
-
-        }
-        return newstr;
-    }
-
-    /** If str1 contains str2, returns true; otherwise returns false. */
     public static boolean contains(String str1, String str2) {
-        // Replace the following statement with your code
-        if (str2.compareTo("") == 0) {return true;}
-        while (firstchar(str1, str2.charAt(0)) != -1) {
-            int i = firstchar(str1, str2.charAt(0));
-            String s = miniString(str1, i, i + str2.length());
-            if(s.compareTo(str2) == 0) {return true;}
-            else {
-                str1 = removeOne(str1, str1.indexOf(str2.charAt(0)));
+        if (str2.isEmpty()) return true;
+        if (str1.length() < str2.length()) return false;
+        for (int i = 0; i <= str1.length() - str2.length(); i++) {
+            if (str1.substring(i, i + str2.length()).equals(str2)) {
+                return true;
             }
-            if (str1.length() < str2.length()) {return false;}
-            if (str1.compareTo(str2) != 0 &&  str1.length() == str2.length()) {return false;}
         }
         return false;
     }
-
-    public static int firstchar(String str, char c) {
-        for (int i = 0; i < str.length(); i++) {
-            if(str.charAt(i) == c) {return i;}
-        }
-        return -1;
-    }
-
-    public static String miniString(String str, int x, int y) {
-        String s = str.substring(x, y);
-        return s;
-
-    }
-    public static String removeOne(String str, int x) {
-        str = str.substring(0, x) + str.substring(x + 1);
-        return str;
-
-    }
 }
-
-
