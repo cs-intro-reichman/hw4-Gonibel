@@ -22,14 +22,14 @@ public class KeywordsDetector {
     }
 
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        for (int i = 0; i < keywords.length; i++) {
-            for (int j = 0; j < sentences.length; j++) {
-                String str = sentences[j].toLowerCase();
-                String key = keywords[i].toLowerCase();
-                if (contains(str, key)) {
-                    System.out.println(sentences[j]);
-                }
+        for (int i = 0; i < sentences.length; i++) {
+            boolean check = false;
+            for ( int j = 0; j < keywords.length; j++) {
+                String str = sentences[i].toLowerCase();
+                String key = keywords[j].toLowerCase();
+                if (contains(str, key)) {check = true;}
             }
+            if (check) {System.out.println(sentences[i]);}
         }
     }
 
